@@ -61,15 +61,28 @@ while ($row = $result_turnos->fetch(PDO::FETCH_ASSOC)) {
     <div class="contenedor-turno">
         <div class="turno-actual">TURNO A PASAR</div>
 
-        <?php if ($turno_atendido && $servicio_atendido): ?>
-            <div class="turno-atendido">
-                <?php echo $turno_atendido;?>
-            </div>
-            <br>
-            <div class="servicioturno">
-            <?php echo $servicio_atendido;?>
-            </div>
+        <?php 
+        session_start();//inicia la sesion
 
+        //suponiendo que $turno_numero y $servicio estan definidos en algun lugar del codigo
+
+        if(isset($turno_numero) && isset($servicio)){
+            $_SESSION['turno_atendido'] = $turno_numero;
+            $_SESSION['servicio_atendido'] = $servicio;
+        }
+
+        //obtener el turno y servicio atendido desde la sesion
+
+        $turno_atendido = isset($_SESSION['turno_atendido']) ? $_SESSION['turno_atendido'] : null;
+        $servicio_atendido = isset($_SESSION['servicio_atendido']) ? $_SESSION['servicio_atendido'] : null;
+
+        if ($turno_atendido && $servicio_atendido): ?>
+        <div class="turno-atendido">
+            <?php echo $turno_atendido; ?>
+            </div>
+            <div class="turno-atendido">
+            <?php echo $servicio_atendido; ?>
+            </div>
         <?php endif; ?>
 
         <?php if (count($turnos) > 0): ?>
