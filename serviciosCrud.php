@@ -7,7 +7,7 @@ $conexion = conectar();
 
 // Verificar si el usuario está autenticado y es el id_usuario = 1
 if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] != 1) {
-    header("Location: http://localhost/Turnos_Estetica/login.php");
+    header("Location: http://localhost/Turnos_Estetica_P/login.php");
     exit();
 }
 

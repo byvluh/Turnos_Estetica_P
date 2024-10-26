@@ -3,7 +3,7 @@ session_start();
 
 if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] !== 2) {
 	$mensaje = '<div class="alerta">No tienes permiso para acceder a esta página. Serás redirigido al login.</div>';
-	header("Location: http://localhost/Turnos_Estetica/login.php");
+	header("Location: http://localhost/Turnos_Estetica_P/login.php");
 	exit();
 }
 ?>

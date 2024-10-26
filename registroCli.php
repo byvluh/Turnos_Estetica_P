@@ -4,7 +4,7 @@ session_start();
 // Verificar si el usuario está autenticado y tiene el rol adecuado
 if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] !== 2) {
     $mensaje = '<div class="alerta">No tienes permiso para acceder a esta página. Serás redirigido al login.</div>';
-    header("location: http://localhost/Turnos_Estetica/login.php");
+    header("location: http://localhost/Turnos_Estetica_P/login.php");
     exit();
 }
 

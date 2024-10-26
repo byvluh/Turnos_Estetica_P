@@ -3,14 +3,13 @@
 include 'services/dbcon.php';
 $conexion = conectar();
 
-session_start(); // Iniciar la sesión
+// Obtener el token de la solicitud (por ejemplo, desde un parámetro GET o un header)
+$token = isset($_GET['token']) ? $_GET['token'] : null;
 
-// Verificar si el usuario está autenticado y si tiene el usuario adecuado
-if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] !== 2) {
-    $mensaje = '<div class="alerta">No tienes permiso para acceder a esta página. Serás redirigido al login.</div>';
-    // Si no está autenticado o no es el usuario adecuado, redirigir al login
-    header("Location: http://localhost/Turnos_Estetica/login.php");
-    exit(); // Detener la ejecución del script
+// Verificar si el token es válido y corresponde al usuario con ID 2
+if (!$token || !esTokenValido($token, $conexion, 2)) {
+    header("Location: http://localhost/Turnos_Estetica_P/login.php");
+    exit();
 }
 
 // Lógica para manejar el botón presionado
@@ -23,9 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $conexion->prepare("UPDATE turno SET estado = 3 WHERE num_turno = :turno_numero AND fecha_turno = CURDATE()");
         $stmt->bindParam(':turno_numero', $turno_numero);
         $stmt->execute();
-        // Guardar el turno atendido en la sesión
-        session_start();
-        $_SESSION['turno_atendido'] = $turno_numero;
 
         // Obtener los servicios para el turno atendido
         $stmt_servicios = $conexion->prepare("SELECT GROUP_CONCAT(DISTINCT s.nombre_serv SEPARATOR ', ') AS servicios 
@@ -36,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_servicios->bindParam(':turno_numero', $turno_numero);
         $stmt_servicios->execute();
         $resultado_servicios = $stmt_servicios->fetch(PDO::FETCH_ASSOC);
-        $_SESSION['servicio_atendido'] = $resultado_servicios['servicios'];
+        $servicio_atendido = $resultado_servicios['servicios'];
     } elseif ($accion === 'Pasar') {
         // Pasar el turno (cambiar el estado)
         $stmt = $conexion->prepare("UPDATE turno SET estado = 2 WHERE num_turno = :turno_numero AND fecha_turno = CURDATE()");
@@ -45,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Redireccionar a la misma página para mostrar el siguiente turno
-    header("Location: " . $_SERVER['PHP_SELF']);
+    header("Location: " . $_SERVER['PHP_SELF'] . "?token=" . $token);
     exit;
 }
 
@@ -80,6 +76,15 @@ if ($turno_actual['numero'] !== 'No hay turnos') {
 if (!$turno_actual) {
     $turno_actual = ['numero' => 'No hay turnos'];
 }
+
+// Función para verificar si el token es válido
+function esTokenValido($token, $conexion, $id_usuario) {
+    $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE id_usuario = :id_usuario AND token = :token");
+    $stmt->bindParam(':id_usuario', $id_usuario);
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
+}
 ?>
 
 <!DOCTYPE html>
@@ -95,13 +100,12 @@ if (!$turno_actual) {
 <body>
 
 <div class="svgcont">
-
     <a href="menu.php" class="">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svgmenu"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svgmenu">
             <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
         </svg>
     </a>
-    </div>
+</div>
 
 <div class="contenedor-turno">
     <div class="turno-actual">TURNO</div>
