@@ -9,7 +9,7 @@ $conexion = conectar();
 // Verificar si la sesión id_usuario está establecida y si su valor es 2
 if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] != 2) {
     // Si la sesión no es válida, redirigir al login
-    header("Location: Turnos_Estetica_P/login.php");
+    header("Location: /Turnos_Estetica_P/login.php");
     exit();
 }
 

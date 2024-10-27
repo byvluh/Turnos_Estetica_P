@@ -10,7 +10,7 @@
 
 <body class="body-log">
     <div class="contbien">
-        <h1>Bienvenido a Turnos Estética</h1>
+        <h1>Bienvenido a <br> Turnos Estética Palacios</h1>
         <div class="logo-circulo">
             <img src="assets/eplogoblanco.png" alt="Logo">
         </div>

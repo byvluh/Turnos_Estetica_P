@@ -15,7 +15,6 @@ CREATE TABLE usuarios (
     usuario VARCHAR(20) UNIQUE NOT NULL,
     password VARCHAR(64) NOT NULL,
     id_rol INT(1) NOT NULL,
-    token VARCHAR(64) DEFAULT NULL,  -- Nueva columna para almacenar el token
     FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
 );
 
