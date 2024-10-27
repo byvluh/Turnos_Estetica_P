@@ -87,6 +87,11 @@ if (!$turno_actual) {
     <link rel="stylesheet" type="text/css" href="styles/styles2turnos.css">
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        function confirmPassTurno() {
+            return confirm("¿Estás seguro de que deseas pasar el turno?");
+        }
+    </script>
 </head>
 <body>
 
@@ -111,7 +116,7 @@ if (!$turno_actual) {
     <form class="botones" action="" method="post">
         <input type="hidden" name="turno_numero" value="<?php echo $turno_actual['numero']; ?>">
         <div class="botones">
-            <button type="submit" name="accion" value="Pasar" class="boton">Saltar</button>
+            <button type="submit" name="accion" value="Pasar" class="boton" onclick="return confirmPassTurno();">Saltar</button>
             <button type="submit" name="accion" value="Atender" class="boton">Atender</button>
         </div>
     </form>
