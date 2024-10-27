@@ -1,27 +1,16 @@
 <?php
+// Iniciar sesión
+session_start();
+
 // Incluir la conexión a la base de datos
 include 'services/dbcon.php';
 $conexion = conectar();
 
-// Suponiendo que el token se envía como parte de la solicitud, por ejemplo, en un header o parámetro GET
-$token = isset($_GET['token']) ? $_GET['token'] : null;
-
-if (!$token) {
-    // Si no hay token, redirigir al login
-    header("Location: http://localhost/Turnos_Estetica_P/login.php");
-    exit(); // Detener la ejecución del script
-}
-
-// Verificar el token en la base de datos
-$stmt = $conexion->prepare("SELECT id_usuario FROM usuarios WHERE token = :token");
-$stmt->bindParam(':token', $token);
-$stmt->execute();
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$result || $result['id_usuario'] !== 2) {
-    // Si el token no es válido o el usuario no es el correcto, redirigir al login
-    header("Location: http://localhost/Turnos_Estetica/login.php");
-    exit(); // Detener la ejecución del script
+// Verificar si la sesión id_usuario está establecida y si su valor es 2
+if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] != 2) {
+    // Si la sesión no es válida, redirigir al login
+    header("Location: Turnos_Estetica_P/login.php");
+    exit();
 }
 
 // Obtener el turno atendido y servicio atendido directamente desde la base de datos

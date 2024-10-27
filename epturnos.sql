@@ -15,6 +15,7 @@ CREATE TABLE usuarios (
     usuario VARCHAR(20) UNIQUE NOT NULL,
     password VARCHAR(64) NOT NULL,
     id_rol INT(1) NOT NULL,
+    token VARCHAR(64) DEFAULT NULL,  -- Nueva columna para almacenar el token
     FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
 );
 
@@ -31,7 +32,7 @@ CREATE TABLE servicios (
     id_servicio INT(4) PRIMARY KEY AUTO_INCREMENT,
     nombre_serv VARCHAR(25) NOT NULL UNIQUE,
     costo DECIMAL(6,2) NOT NULL,
-    activo TINYINT(1) NOT NULL DEFAULT 1 -- 1 para activo, 2 para inactivo, 0 para eliminado (se elimina desde php)
+    activo INT(1) NOT NULL DEFAULT 1 -- 1 para activo, 2 para inactivo, 0 para eliminado (se elimina desde php)
 
 );
 

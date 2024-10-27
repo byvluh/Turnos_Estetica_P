@@ -3,11 +3,11 @@ session_start();
 
 if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] !== 2) {
 	$mensaje = '<div class="alerta">No tienes permiso para acceder a esta página. Serás redirigido al login.</div>';
-	header("Location: http://localhost/Turnos_Estetica_P/login.php");
+	header("Location: /Turnos_Estetica_P/login.php");
 	exit();
 }
 ?>
-
+.
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +26,7 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] !== 2) {
 	<div class="contenedor-principal">
 		<h1>Menú de opciones</h1>
 
-		<p>Bienvenido: <?php echo isset($_SESSION['usuario']) ? htmlspecialchars($_SESSION['usuario']) : 'Usuario desconocido'; ?></p> <!-- Mensaje de bienvenida -->
+		<p>Bienvenido: recep1</p> <!-- Mensaje de bienvenida -->
 
 		<div>
 			<a href="registroCli.php">Registro de Cliente y Servicios</a>

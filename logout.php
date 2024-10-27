@@ -15,6 +15,6 @@ header("Pragma: no-cache");
 
 
 // Redirigir al usuario a la página de login
-header('Location: http://localhost/Turnos_Estetica_P/index.php');
+header('Location: /Turnos_Estetica_P/index.php');
 exit;
 ?>

@@ -1,16 +1,17 @@
 <?php
+// Iniciar sesión
 session_start();
-
-// Verificar si el usuario está autenticado y tiene el rol adecuado
-if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] !== 2) {
-    $mensaje = '<div class="alerta">No tienes permiso para acceder a esta página. Serás redirigido al login.</div>';
-    header("location: http://localhost/Turnos_Estetica_P/login.php");
-    exit();
-}
 
 // Incluir la conexión a la base de datos
 include("services/dbcon.php");
 $conexion = conectar();
+
+// Verificar si la sesión 'id_usuario' está establecida y es igual a 2
+if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] != 2) {
+    // Si no hay sesión o el usuario no es el correcto, redirigir al login
+    header("Location: http://localhost/Turnos_Estetica_P/login.php");
+    exit();
+}
 
 // Obtener solo los servicios activos
 $stmt = $conexion->prepare("SELECT * FROM servicios WHERE activo = 1");
@@ -103,7 +104,6 @@ if (!empty($_POST["registro"])) {
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -111,71 +111,63 @@ if (!empty($_POST["registro"])) {
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
 <body class="body-log">
 
 <div class="svgcont">
-
     <a href="menu.php" class="">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svgmenu"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svgmenu">
             <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
         </svg>
     </a>
+</div>
+
+<h1>Registro de Cliente</h1>
+
+<form action="" method="POST" class="formulario">
+    <!-- Mostrar el mensaje de éxito o error debajo del encabezado -->
+    <?php if (!empty($mensaje)) echo $mensaje; ?>
+
+    <!-- Formulario de registro del cliente y servicios -->
+    <div class="form-group">
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre_clientes" placeholder="Ingresa el Nombre" required>
+        <br><br>
+        <label for="apat">Apellido Paterno:</label>
+        <input type="text" id="apat" name="ap_clientes" placeholder="Ingresa el Apellido Paterno" required>
+        <br><br>
+        <label for="amat">Apellido Materno:</label>
+        <input type="text" id="amat" name="am_clientes" placeholder="Ingresa el Apellido Materno" required>
+        <br><br>
     </div>
 
-    <h1>Registro de Cliente</h1>
+    <div class="form-group">
+        <label>Selecciona uno o más servicios:</label>
+        <br>
+        <?php foreach ($servicios as $servicio): ?>
+            <div class="service-option">
+                <input type="checkbox" id="servicio_<?php echo $servicio['id_servicio']; ?>" name="servicios[]" value="<?php echo $servicio['nombre_serv']; ?>">
+                <label for="servicio_<?php echo $servicio['id_servicio']; ?>">
+                    <span><?php echo $servicio['nombre_serv']; ?></span>
+                    <br>
+                    <span>$<?php echo number_format($servicio['costo'], 2); ?></span>
+                </label>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
+    <!-- Botón de enviar -->
+    <input class="boton" type="submit" value="Registrar" name="registro">
+</form>
 
-
-    <form action="" method="POST" class="formulario">
-
-        <!-- Mostrar el mensaje de éxito o error debajo del encabezado -->
-        <?php if (!empty($mensaje)) echo $mensaje; ?>
-
-        <!-- Formulario de registro del cliente y servicios -->
-        <div class="form-group">
-            <label for="nombre">Nombre completo:</label>
-            <input type="text" id="nombre" name="nombre_clientes" placeholder="Ingresa el Nombre" required>
-            <br><br>
-            <label for="apat">Apellido Paterno:</label>
-            <input type="text" id="apat" name="ap_clientes" placeholder="Ingresa el Apellido Paterno" required>
-            <br><br>
-            <label for="amat">Apellido Materno:</label>
-            <input type="text" id="amat" name="am_clientes" placeholder="Ingresa el Apellido Materno" required>
-            <br><br>
-        </div>
-
-        <div class="form-group">
-            <label>Selecciona uno o más servicios:</label>
-            <br>
-            <?php foreach ($servicios as $servicio): ?>
-                <div class="service-option">
-                    <input type="checkbox" id="servicio_<?php echo $servicio['id_servicio']; ?>" name="servicios[]" value="<?php echo $servicio['nombre_serv']; ?>">
-                    <label for="servicio_<?php echo $servicio['id_servicio']; ?>">
-                        <span><?php echo $servicio['nombre_serv']; ?></span>
-                        <br>
-                        <span>$<?php echo number_format($servicio['costo'], 2); ?></span>
-                    </label>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-        <!-- Botón de enviar -->
-        <input class="boton" type="submit" value="Registrar" name="registro">
-    </form>
-
-
-
-    <script>
-        const serviceOptions = document.querySelectorAll('.service-option');
-        serviceOptions.forEach(option => {
-            const checkbox = option.querySelector('input[type="checkbox"]');
-            checkbox.addEventListener('change', function() {
-                option.classList.toggle('selected', checkbox.checked);
-            });
+<script>
+    const serviceOptions = document.querySelectorAll('.service-option');
+    serviceOptions.forEach(option => {
+        const checkbox = option.querySelector('input[type="checkbox"]');
+        checkbox.addEventListener('change', function() {
+            option.classList.toggle('selected', checkbox.checked);
         });
-    </script>
+    });
+</script>
 
 </body>
-
 </html>

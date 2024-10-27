@@ -1,13 +1,13 @@
 <?php
+// Iniciar sesión
+session_start();
+
 // Incluir la conexión a la base de datos
 include 'services/dbcon.php';
 $conexion = conectar();
 
-// Obtener el token de la solicitud (por ejemplo, desde un parámetro GET o un header)
-$token = isset($_GET['token']) ? $_GET['token'] : null;
-
-// Verificar si el token es válido y corresponde al usuario con ID 2
-if (!$token || !esTokenValido($token, $conexion, 2)) {
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] != 2) {
     header("Location: http://localhost/Turnos_Estetica_P/login.php");
     exit();
 }
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Redireccionar a la misma página para mostrar el siguiente turno
-    header("Location: " . $_SERVER['PHP_SELF'] . "?token=" . $token);
+    header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
 
@@ -75,15 +75,6 @@ if ($turno_actual['numero'] !== 'No hay turnos') {
 // Si no hay turnos, establecer valores predeterminados
 if (!$turno_actual) {
     $turno_actual = ['numero' => 'No hay turnos'];
-}
-
-// Función para verificar si el token es válido
-function esTokenValido($token, $conexion, $id_usuario) {
-    $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE id_usuario = :id_usuario AND token = :token");
-    $stmt->bindParam(':id_usuario', $id_usuario);
-    $stmt->bindParam(':token', $token);
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
 }
 ?>
 
