@@ -89,7 +89,7 @@ if (!$turno_actual) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
         function confirmPassTurno() {
-            return confirm("¿Estás seguro de que deseas pasar el turno?");
+            return confirm("¿Estás seguro de que deseas saltar el turno?");
         }
     </script>
 </head>
