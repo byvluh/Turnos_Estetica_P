@@ -9,7 +9,7 @@ $conexion = conectar();
 // Verificar si la sesión 'id_usuario' está establecida y es igual a 2
 if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] != 2) {
     // Si no hay sesión o el usuario no es el correcto, redirigir al login
-    header("Location: http://localhost/Turnos_Estetica_P/login.php");
+    header("Location: /Turnos_Estetica_P/login.php");
     exit();
 }
 
@@ -22,8 +22,12 @@ $mensaje = '';
 $totalCosto = 0;
 
 if (!empty($_POST["registro"])) {
+    // Validar que los campos de cliente no estén vacíos
     if (empty($_POST["nombre_clientes"]) || empty($_POST["ap_clientes"]) || empty($_POST["am_clientes"])) {
         $mensaje = '<div class="alerta">Uno de los campos está vacío</div>';
+    } elseif (empty($_POST['servicios'])) {
+        // Validar que al menos un servicio esté seleccionado
+        $mensaje = '<div class="alerta">Debes seleccionar al menos un servicio</div>';
     } else {
         $nombre = $_POST["nombre_clientes"];
         $apat = $_POST["ap_clientes"];

@@ -26,7 +26,7 @@ $sql_atendido = "SELECT t.num_turno, GROUP_CONCAT(s.nombre_serv SEPARATOR ', ') 
 $stmt_atendido = $conexion->query($sql_atendido);
 $turno_atendido = $stmt_atendido->fetch(PDO::FETCH_ASSOC);
 
-// Obtener todos los turnos del día actual agrupados por num_turno
+// Obtener todos los turnos del día actual que están en espera (estado 1)
 $sql_turnos = "SELECT t.num_turno, GROUP_CONCAT(s.nombre_serv SEPARATOR ', ') AS servicios 
                FROM turno t 
                JOIN ventas v ON t.id_turno = v.id_turno 
@@ -53,6 +53,11 @@ while ($row = $result_turnos->fetch(PDO::FETCH_ASSOC)) {
     <link rel="stylesheet" type="text/css" href="styles/styles2turnos.css">
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .turno-actual {
+            display: none; /* Ocultar por defecto */
+        }
+    </style>
 </head>
 <body>
     <div class="svgcont">
@@ -64,7 +69,7 @@ while ($row = $result_turnos->fetch(PDO::FETCH_ASSOC)) {
     </div>
 
     <div class="contenedor-turno">
-        <div class="turno-actual">TURNO A PASAR</div>
+        <div class="turno-atendido">TURNO A PASAR:</div>
 
         <?php if ($turno_atendido): ?>
             <div class="turno-atendido">
@@ -73,6 +78,14 @@ while ($row = $result_turnos->fetch(PDO::FETCH_ASSOC)) {
             <div class="turno-atendido">
                 <?php echo $turno_atendido['servicios']; ?>
             </div>
+            <script>
+                // Mostrar el turno por 30 segundos
+                setTimeout(function() {
+                    document.querySelector('.turno-atendido').style.display = 'none';
+                    document.querySelector('.turno-actual').style.display = 'block';
+                    document.querySelector('.turno-actual').textContent = 'No hay turnos ni servicios disponibles.';
+                }, 30000); // 30 segundos
+            </script>
         <?php endif; ?>
 
         <?php if (count($turnos) > 0): ?>
@@ -90,7 +103,7 @@ while ($row = $result_turnos->fetch(PDO::FETCH_ASSOC)) {
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
-            <div class="numero-turno">No hay turnos</div>
+            <div class="numero-turno">No hay turnos en espera</div>
         <?php endif; ?>
     </div>
 

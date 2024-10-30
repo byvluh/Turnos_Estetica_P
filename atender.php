@@ -13,7 +13,7 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] != 2) {
 }
 
 // Lógica para manejar el botón presionado
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $turno_numero = $_POST['turno_numero'];
     $accion = $_POST['accion'];
 

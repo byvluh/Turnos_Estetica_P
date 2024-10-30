@@ -5,7 +5,7 @@ USE epturnos;
 -- Crear la tabla "roles"
 CREATE TABLE roles (
     id_rol INT(1) PRIMARY KEY AUTO_INCREMENT,
-    tipo VARCHAR(15) NOT NULL
+    tipo VARCHAR(15) NOT NULL UNIQUE
 );
 
 -- Crear la tabla "usuarios"
@@ -32,7 +32,6 @@ CREATE TABLE servicios (
     nombre_serv VARCHAR(25) NOT NULL UNIQUE,
     costo DECIMAL(6,2) NOT NULL,
     activo INT(1) NOT NULL DEFAULT 1 -- 1 para activo, 2 para inactivo, 0 para eliminado (se elimina desde php)
-
 );
 
 -- Crear la tabla "turno"
@@ -41,7 +40,8 @@ CREATE TABLE turno (
     num_turno INT NOT NULL,
     id_rep INT NOT NULL, -- ID del recepcionista
     fecha_turno DATE NOT NULL,
-    estado INT(1) NOT NULL DEFAULT 1, -- Estado: 1 = en espera, 2 = no atendido, 3 = atendido
+    fecha_atendido TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    estado INT(1) NOT NULL DEFAULT 1, -- Estado: 1 = en espera, 2 = no atendido, 3 = atendido, 4 = listo
     FOREIGN KEY (id_rep) REFERENCES usuarios(id_usuario)
 );
 
@@ -91,7 +91,20 @@ BEGIN
 END;
 //
 
+DELIMITER //
+
+CREATE EVENT actualizar_turnos_listos
+ON SCHEDULE EVERY 1 MINUTE
+DO
+BEGIN
+    UPDATE turno
+    SET estado = 4
+    WHERE estado = 3 AND TIMESTAMPDIFF(SECOND, fecha_atendido, NOW()) >= 30;
+END;
+//
+
 DELIMITER ;
+
 
 -- Insertar roles en la tabla "roles"
 INSERT INTO roles (tipo) 
@@ -108,6 +121,6 @@ VALUES ('Peinado', 300.00),
        ('Maquillaje', 600.00),
        ('Corte de Dama', 150.00),
        ('Corte de Caballero', 120.00),
-       ('Depilacion', 100.00),
+       ('Depilación', 100.00),
        ('Tinte', 500.00),
        ('Efecto de color', 1000.00);
