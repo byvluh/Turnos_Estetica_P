@@ -20,7 +20,7 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] !== 2) {
 
 <body class="body-log">
 	<div class="logo-circulo">
-		<img src="assets/eplogoblanco.png" alt="Logo">
+		<img src="assets/imgs/eplogoblanco.png" alt="Logo">
 	</div>
 
 	<div class="contenedor-principal">

@@ -12,7 +12,7 @@
     <div class="contbien">
         <h1>Bienvenido a <br> Turnos Estética Palacios</h1>
         <div class="logo-circulo">
-            <img src="assets/eplogoblanco.png" alt="Logo">
+            <img src="assets/imgs/eplogoblanco.png" alt="Logo">
         </div>
         <div class="conta">
             <a href="login.php">Iniciar Sesión</a>
