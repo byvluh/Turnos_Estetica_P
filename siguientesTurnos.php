@@ -69,13 +69,13 @@ while ($row = $result_turnos->fetch(PDO::FETCH_ASSOC)) {
     </div>
 
     <div class="contenedor-turno">
-        <div class="turno-atendido">TURNO A PASAR:</div>
+        <div class="turno-atendido">TURNO A ATENDER:</div>
 
         <?php if ($turno_atendido): ?>
-            <div class="turno-atendido">
+            <div class="num-turno">
                 <?php echo $turno_atendido['num_turno']; ?>
             </div>
-            <div class="turno-atendido">
+            <div class="serv-turno">
                 <?php echo $turno_atendido['servicios']; ?>
             </div>
             <script>
@@ -88,6 +88,7 @@ while ($row = $result_turnos->fetch(PDO::FETCH_ASSOC)) {
             </script>
         <?php endif; ?>
 
+        <div class="siguientes-container">
         <?php if (count($turnos) > 0): ?>
             <div class="despues">Siguientes</div>
             <div class="siguientes">
@@ -103,8 +104,10 @@ while ($row = $result_turnos->fetch(PDO::FETCH_ASSOC)) {
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
+            <br>
             <div class="numero-turno">No hay turnos en espera</div>
         <?php endif; ?>
+    </div>
     </div>
 
     <script>

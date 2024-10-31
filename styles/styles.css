@@ -15,7 +15,7 @@
 } 
 
 .body-log {
-  background-image: url("../assets/imgs/Radico.jpeg");
+  background-image: url("../assets/imgs/fondo2rz.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -357,15 +357,23 @@ input[type="number"] {
   display: flex;
   flex-direction: column; 
   justify-content: center; 
-  width: 80%;
   margin: auto; 
   padding: 20px;
   background: rgba(250, 246, 245, 0.5); 
+  border-radius: 15px;
+  align-items: center;
+  width: 90%;
+  max-width: 620px;
+  text-align: center;
 }
 
 .contenedor-principal h1, .contenedor-principal p {
   color: #faf6f5; 
   text-align: center; 
+}
+
+.contenedor-principal p {
+  font-size: larger;
 }
 
 .contenedor-principal div {
@@ -378,7 +386,7 @@ input[type="number"] {
   margin: 15px auto;
   padding: 20px;
   border-radius: 15px;
-  width: calc(30% - 25px);
+  width: 100%;
   background-color: #1d1b1b;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -390,7 +398,9 @@ input[type="number"] {
 
 .contenedor-principal div a {
   color: inherit; 
-  transition: color 0.3s ease; 
+  transition: color 0.3s ease;
+  height: 100%; 
+  width: 100%;
 }
 
 .contenedor-principal div:hover a {
@@ -402,8 +412,7 @@ input[type="number"] {
   color: #faf6f5;
 }
 
-
-.contenedor-principal .svglog {
+.svglog {
   width: 50px; 
   height: 50px; 
   border-radius: 50%; 
@@ -420,6 +429,7 @@ input[type="number"] {
 .svglogout {
   width: 30px; 
   height: 30px; 
+
   fill: #1d1b1b; 
   transition: fill 0.3s; 
 }
@@ -427,6 +437,7 @@ input[type="number"] {
 .svglog:hover .svgmenu {
   fill: #79756c; 
 }
+
 
 /* estilo crud */
 
