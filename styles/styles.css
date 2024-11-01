@@ -1,5 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap");
+@font-face{
+  font-family: 'Inter';
+  src: url(../assets/fonts/Inter-VariableFont_opsz\,wght.ttf);
+}
+
+@font-face{
+  font-family: 'Playfair Display';
+  src: url(../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+}
  * {
   box-sizing: border-box;
   margin: 0;
@@ -8,7 +15,7 @@
 } 
 
 .body-log {
-  background-image: url("../assets/Radico.jpeg");
+  background-image: url("../assets/imgs/fondo2rz.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -103,50 +110,30 @@
   padding-bottom: 5px;
 }
 
-/* .link-menu {
-  color: #faf6f5;
-  text-decoration: none;
-  font-size: 15px;
-  text-align: center;
-  display: flex;
-  align-items: ;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  margin: 40px auto;
-  border-radius: 50%;
-  background-color: #1d1b1b;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.link-menu:hover {
-  background-color: #faf6f5;
-  color: #1d1b1b;
-} */
 
 .svgcont {
-  width: 50px; /* Set a smaller width */
-  height: 50px; /* Set a smaller height */
-  border-radius: 50%; /* Make it round */
-  background-color: #faf6f5; /* Background color */
-  display: flex; /* Use flexbox for centering the SVG */
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
-  position: absolute; /* Position it absolutely */
-  left: 10px; /* Place it near the left edge */
-  top: 20px; /* Adjust top position as needed */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+  width: 50px; 
+  height: 50px; 
+  border-radius: 50%; 
+  background-color: #faf6f5; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  position: absolute;
+  left: 10px; 
+  top: 20px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .svgmenu {
-  width: 30px; /* Adjust size of the SVG */
-  height: 30px; /* Adjust size of the SVG */
-  fill: #1d1b1b; /* Set the color of the SVG */
-  transition: fill 0.3s; /* Smooth transition for hover effect */
+  width: 30px; 
+  height: 30px; 
+  fill: #1d1b1b; 
+  transition: fill 0.3s; 
 }
 
 .svgcont:hover .svgmenu {
-  fill: #79756c; /* Change color on hover */
+  fill: #79756c; 
 }
 
 h1 {
@@ -349,7 +336,7 @@ input[type="number"] {
   align-items: center;
   justify-content: center;
   background-color: #faf6f5;
-  margin: 0 auto 20px; /* Center the logo */
+  margin: 0 auto 20px; 
   border: 5px solid #79756c;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -368,18 +355,25 @@ input[type="number"] {
 
 .contenedor-principal {
   display: flex;
-  flex-direction: column; /* Arrange children in a column */
-  justify-content: center; /* Center items vertically */
-  width: 80%;
-  margin: auto; /* Adjusted margin to keep it centered */
+  flex-direction: column; 
+  justify-content: center; 
+  margin: auto; 
   padding: 20px;
-  background: rgba(250, 246, 245, 0.5); /* Changed to rgba for transparency */
-  border-radius: 25px;
+  background: rgba(250, 246, 245, 0.5); 
+  border-radius: 15px;
+  align-items: center;
+  width: 90%;
+  max-width: 620px;
+  text-align: center;
 }
 
 .contenedor-principal h1, .contenedor-principal p {
-  color: #faf6f5; /* Set text color for headings and paragraphs */
-  text-align: center; /* Center text */
+  color: #faf6f5; 
+  text-align: center; 
+}
+
+.contenedor-principal p {
+  font-size: larger;
 }
 
 .contenedor-principal div {
@@ -392,7 +386,7 @@ input[type="number"] {
   margin: 15px auto;
   padding: 20px;
   border-radius: 15px;
-  width: calc(30% - 25px);
+  width: 100%;
   background-color: #1d1b1b;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -404,7 +398,9 @@ input[type="number"] {
 
 .contenedor-principal div a {
   color: inherit; 
-  transition: color 0.3s ease; 
+  transition: color 0.3s ease;
+  height: 100%; 
+  width: 100%;
 }
 
 .contenedor-principal div:hover a {
@@ -416,31 +412,32 @@ input[type="number"] {
   color: #faf6f5;
 }
 
-
-.contenedor-principal .svglog {
-  width: 50px; /* Set a smaller width */
-  height: 50px; /* Set a smaller height */
-  border-radius: 50%; /* Make it round */
-  background-color: #faf6f5; /* Background color */
-  display: flex; /* Use flexbox for centering the SVG */
-  align-items: center; /* Center vertically */
+.svglog {
+  width: 50px; 
+  height: 50px; 
+  border-radius: 50%; 
+  background-color: #faf6f5; 
+  display: flex; 
+  align-items: center; 
   justify-content: center;
-  position: absolute; /* Position it absolutely */
-  left: 95%; /* Place it near the left edge */
-  top: 20px; /* Adjust top position as needed */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+  position: absolute; 
+  left: 95%; 
+  top: 20px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .svglogout {
-  width: 30px; /* Adjust size of the SVG */
-  height: 30px; /* Adjust size of the SVG */
-  fill: #1d1b1b; /* Set the color of the SVG */
-  transition: fill 0.3s; /* Smooth transition for hover effect */
+  width: 30px; 
+  height: 30px; 
+
+  fill: #1d1b1b; 
+  transition: fill 0.3s; 
 }
 
 .svglog:hover .svgmenu {
-  fill: #79756c; /* Change color on hover */
+  fill: #79756c; 
 }
+
 
 /* estilo crud */
 
