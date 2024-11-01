@@ -84,7 +84,7 @@ while ($row = $result_turnos->fetch(PDO::FETCH_ASSOC)) {
                     document.querySelector('.turno-atendido').style.display = 'none';
                     document.querySelector('.turno-actual').style.display = 'block';
                     document.querySelector('.turno-actual').textContent = 'No hay turnos ni servicios disponibles.';
-                }, 30000); // 30 segundos
+                }, 15000); // 30 segundos
             </script>
         <?php endif; ?>
 

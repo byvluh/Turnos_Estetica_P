@@ -99,7 +99,7 @@ DO
 BEGIN
     UPDATE turno
     SET estado = 4
-    WHERE estado = 3 AND TIMESTAMPDIFF(SECOND, fecha_atendido, NOW()) >= 30;
+    WHERE estado = 3 AND TIMESTAMPDIFF(SECOND, fecha_atendido, NOW()) >= 15;
 END;
 //
 
